@@ -90,7 +90,7 @@
         <div class="container mx-auto px-4 relative z-10 text-center">
             <h1 class="font-display font-extrabold text-4xl md:text-6xl mb-4 tracking-tight uppercase">Project Adelaide</h1>
             <p class="text-xl md:text-2xl font-light text-blue-100 max-w-3xl mx-auto">
-                Bridging the gap to a <strong class="text-secondary">R3 Million (~$271,000 AUD)</strong> fully funded PhD investment.
+                Bridging the gap to a <strong class="text-secondary">R3 Million (~$271,000 AUD)*</strong> fully funded PhD investment.
             </p>
             <div class="mt-8">
                 <span class="inline-block bg-secondary text-white font-bold py-2 px-6 rounded-full shadow-lg transform rotate-[-2deg]">
@@ -150,7 +150,7 @@
         <!-- Section 2: The Package (Donut Chart) -->
         <section class="mb-16 bg-white rounded-2xl shadow-lg p-8">
             <div class="text-center mb-10">
-                <h3 class="text-3xl font-display font-bold text-gray-800">The R3 Million Package (~$271,000 AUD)</h3>
+                <h3 class="text-3xl font-display font-bold text-gray-800">The R3 Million Package (~$271,000 AUD)*</h3>
                 <p class="text-gray-500 mt-2">A secured, fully-funded 3.5-year investment.</p>
             </div>
 
@@ -162,17 +162,17 @@
                     <div class="grid grid-cols-1 gap-4">
                         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-primary">
                             <p class="text-sm text-gray-500 uppercase font-bold">Tuition (Fully Funded)</p>
-                            <p class="text-2xl font-bold text-primary">~R1.6 Million <span class="text-lg font-normal text-gray-600">(~$142,500 AUD)</span></p>
+                            <p class="text-2xl font-bold text-primary">~R1.9 Million <span class="text-lg font-normal text-gray-600">(~$170,400 AUD)*</span></p>
                             <p class="text-xs text-gray-400">3.5 Years Value</p>
                         </div>
                         <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-secondary">
                             <p class="text-sm text-gray-500 uppercase font-bold">Annual Stipend</p>
-                            <p class="text-2xl font-bold text-gray-800">~R409,380 p/a <span class="text-lg font-normal text-gray-600">($36,500 AUD/year)</span></p>
+                            <p class="text-2xl font-bold text-gray-800">~R427,144 p/a <span class="text-lg font-normal text-gray-600">($36,500 AUD/year)</span></p>
                             <p class="text-xs text-gray-400">Tax Free Living Allowance</p>
                         </div>
                         <div class="bg-green-50 p-4 rounded-lg border-l-4 border-accent">
                             <p class="text-sm text-gray-500 uppercase font-bold">Relocation Allowance</p>
-                            <p class="text-2xl font-bold text-accent">~R16,820 <span class="text-lg font-normal text-gray-600">($1,500 AUD)</span></p>
+                            <p class="text-2xl font-bold text-accent">~R17,550 <span class="text-lg font-normal text-gray-600">($1,500 AUD)*</span></p>
                             <p class="text-xs text-gray-400">Once-off Grant</p>
                         </div>
                     </div>
@@ -182,6 +182,11 @@
                         <canvas id="packageChart"></canvas>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Figures Disclaimer Callout -->
+            <div class="mt-8 p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs text-gray-500 text-center">
+                <strong>* Disclaimer:</strong> All Rand (ZAR) conversions and estimates are based on current exchange rates and are subject to minor adjustments based on market fluctuations and final institutional disbursement schedules.
             </div>
         </section>
 
@@ -195,7 +200,7 @@
                         <div class="bg-gray-800 text-white p-6 rounded-xl h-full flex flex-col justify-center text-center shadow-lg">
                             <h4 class="text-xl font-bold text-secondary mb-2">The Request</h4>
                             <div class="text-4xl font-extrabold mb-1">R40,000</div>
-                            <div class="text-lg font-semibold text-gray-300 mb-2">(~$3,560 AUD)</div>
+                            <div class="text-lg font-semibold text-gray-300 mb-2">(~$3,560 AUD)*</div>
                             <p class="text-gray-300 text-sm mb-6">Bridge Loan Target</p>
                             <hr class="border-gray-600 mb-6">
                             <p class="text-gray-300 mb-4">
@@ -288,8 +293,13 @@
                         Available upon request via WhatsApp.
                     </div>
                 </div>
+
+                <!-- General Financial & Terms Disclaimer Footer Note -->
+                <div class="max-w-lg mx-auto text-center text-xs text-gray-500 mt-8 pt-4 border-t border-gray-700">
+                    <p><strong>Financial Note:</strong> All financial estimates, currency conversions (AUD/ZAR), and dates are approximate and subject to adjustment based on official university terms, visa processing schedules, and exchange rate variations.</p>
+                </div>
                 
-                <p class="text-xs text-gray-700 mt-12">&copy; 2026 Project Adelaide Pitch</p>
+                <p class="text-xs text-gray-700 mt-8">&copy; 2026 Project Adelaide Pitch</p>
             </div>
         </footer>
 
@@ -412,7 +422,7 @@
                             label: function(context) {
                                 let value = context.raw;
                                 let audValue = Math.round(value / 11.23).toLocaleString();
-                                return ' Value: R ' + value.toLocaleString() + ' (~$' + audValue + ' AUD)'; 
+                                return ' Value: R ' + value.toLocaleString() + ' (~$' + audValue + ' AUD)*'; 
                             }
                         }
                     }
@@ -471,7 +481,7 @@
                             label: function(context) {
                                 let val = context.raw;
                                 let aud = Math.round(val / 11.23).toLocaleString();
-                                return ' Amount: R ' + val.toLocaleString() + ' (~$' + aud + ' AUD)';
+                                return ' Amount: R ' + val.toLocaleString() + ' (~$' + aud + ' AUD)*';
                             }
                         }
                     }
