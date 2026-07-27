@@ -162,17 +162,17 @@
                     <div class="grid grid-cols-1 gap-4">
                         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-primary">
                             <p class="text-sm text-gray-500 uppercase font-bold">Tuition (Fully Funded)</p>
-                            <p class="text-2xl font-bold text-primary">~R1.9 Million <span class="text-lg font-normal text-gray-600">(~$170,400 AUD)*</span></p>
+                            <p class="text-2xl font-bold text-primary">~R1.6 Million <span class="text-lg font-normal text-gray-600">(~$142,500 AUD)*</span></p>
                             <p class="text-xs text-gray-400">3.5 Years Value</p>
                         </div>
                         <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-secondary">
                             <p class="text-sm text-gray-500 uppercase font-bold">Annual Stipend</p>
-                            <p class="text-2xl font-bold text-gray-800">~R427,144 p/a <span class="text-lg font-normal text-gray-600">($36,500 AUD/year)</span></p>
+                            <p class="text-2xl font-bold text-gray-800">~R409,380 p/a <span class="text-lg font-normal text-gray-600">($36,500 AUD/year)</span></p>
                             <p class="text-xs text-gray-400">Tax Free Living Allowance</p>
                         </div>
                         <div class="bg-green-50 p-4 rounded-lg border-l-4 border-accent">
                             <p class="text-sm text-gray-500 uppercase font-bold">Relocation Allowance</p>
-                            <p class="text-2xl font-bold text-accent">~R17,550 <span class="text-lg font-normal text-gray-600">($1,500 AUD)*</span></p>
+                            <p class="text-2xl font-bold text-accent">~R16,820 <span class="text-lg font-normal text-gray-600">($1,500 AUD)*</span></p>
                             <p class="text-xs text-gray-400">Once-off Grant</p>
                         </div>
                     </div>
@@ -388,13 +388,13 @@
 
         // --- 2. The Package Doughnut Chart ---
         const ctxPackage = document.getElementById('packageChart').getContext('2d');
+        // Unwrapped labels so that each string renders on a single line
         const labelsPackage = ['Tuition Fee (3.5y)', 'Living Stipend (3.5y)', 'Relocation Allowance'];
-        const processedLabelsPackage = labelsPackage.map(l => splitLabel(l, 20));
 
         new Chart(ctxPackage, {
             type: 'doughnut',
             data: {
-                labels: processedLabelsPackage,
+                labels: labelsPackage,
                 datasets: [{
                     data: [1600000, 1432830, 16820], // Approx Rands
                     backgroundColor: [
@@ -413,7 +413,15 @@
                 plugins: {
                     legend: {
                         position: 'bottom',
-                        labels: { padding: 20, usePointStyle: true }
+                        labels: { 
+                            padding: 12, 
+                            usePointStyle: true,
+                            boxWidth: 8,
+                            font: {
+                                size: 11,
+                                family: "'Open Sans', sans-serif"
+                            }
+                        }
                     },
                     tooltip: {
                         ...commonTooltip,
