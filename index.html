@@ -43,21 +43,21 @@
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 600px;
+            max-width: 600px; /* Max width constraint */
             margin-left: auto;
             margin-right: auto;
-            height: 320px;
-            max-height: 420px;
+            height: 300px; /* Base height */
+            max-height: 400px;
         }
 
-        /* Taller container for specific charts */
+        /* Taller container for specific charts if needed */
         .chart-container-lg {
-            height: 380px;
+            height: 400px;
         }
 
         @media (min-width: 768px) {
             .chart-container {
-                height: 360px;
+                height: 350px;
             }
             .chart-container-lg {
                 height: 450px;
@@ -162,22 +162,22 @@
                     <div class="grid grid-cols-1 gap-4">
                         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-primary">
                             <p class="text-sm text-gray-500 uppercase font-bold">Tuition (Fully Funded)</p>
-                            <p class="text-2xl font-bold text-primary">~R1.6 Million <span class="text-lg font-normal text-gray-600">(~$142,500 AUD)*</span></p>
+                            <p class="text-2xl font-bold text-primary">~R1.9 Million <span class="text-lg font-normal text-gray-600">(~$170,400 AUD)*</span></p>
                             <p class="text-xs text-gray-400">3.5 Years Value</p>
                         </div>
                         <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-secondary">
                             <p class="text-sm text-gray-500 uppercase font-bold">Annual Stipend</p>
-                            <p class="text-2xl font-bold text-gray-800">~R409,380 p/a <span class="text-lg font-normal text-gray-600">($36,500 AUD/year)</span></p>
+                            <p class="text-2xl font-bold text-gray-800">~R427,144 p/a <span class="text-lg font-normal text-gray-600">($36,500 AUD/year)</span></p>
                             <p class="text-xs text-gray-400">Tax Free Living Allowance</p>
                         </div>
                         <div class="bg-green-50 p-4 rounded-lg border-l-4 border-accent">
                             <p class="text-sm text-gray-500 uppercase font-bold">Relocation Allowance</p>
-                            <p class="text-2xl font-bold text-accent">~R16,820 <span class="text-lg font-normal text-gray-600">($1,500 AUD)*</span></p>
+                            <p class="text-2xl font-bold text-accent">~R17,550 <span class="text-lg font-normal text-gray-600">($1,500 AUD)*</span></p>
                             <p class="text-xs text-gray-400">Once-off Grant</p>
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-center w-full">
+                <div class="flex justify-center">
                     <div class="chart-container">
                         <canvas id="packageChart"></canvas>
                     </div>
@@ -217,7 +217,7 @@
                                 This chart illustrates the scale of the secured funding versus the immediate bridge loan required. The request represents <strong>~1.3%</strong> of the total secured contract value, highlighting the low risk and high security of this loan.
                             </p>
                         </div>
-                        <div class="chart-container" style="height: 260px;">
+                        <div class="chart-container" style="height: 250px;">
                             <canvas id="gapChart"></canvas>
                         </div>
                     </div>
@@ -225,7 +225,7 @@
             </div>
         </section>
 
-        <!-- Section 4: Timeline (HTML/Tailwind) -->
+        <!-- Section 4: Timeline (HTML/Tailwind - No SVG) -->
         <section class="mb-16 max-w-3xl mx-auto">
             <div class="text-center mb-12">
                 <h3 class="text-3xl font-display font-bold text-gray-800">Critical Timeline</h3>
@@ -308,7 +308,7 @@
     <!-- Chart Logic -->
     <script>
         // --- Helper Function: Split Long Labels ---
-        function splitLabel(str, maxLen = 18) {
+        function splitLabel(str, maxLen = 16) {
             if (str.length <= maxLen) return str;
             const words = str.split(' ');
             const lines = [];
@@ -354,9 +354,9 @@
                     label: 'Research Focus Intensity',
                     data: [90, 85, 95, 80, 75],
                     fill: true,
-                    backgroundColor: 'rgba(30, 64, 175, 0.2)',
+                    backgroundColor: 'rgba(30, 64, 175, 0.2)', // Primary Blue transparent
                     borderColor: '#1e40af',
-                    pointBackgroundColor: '#f97316',
+                    pointBackgroundColor: '#f97316', // Orange
                     pointBorderColor: '#fff',
                     pointHoverBackgroundColor: '#fff',
                     pointHoverBorderColor: '#f97316'
@@ -386,53 +386,34 @@
             }
         });
 
-        // --- 2. The Package Doughnut Chart (Spacing & Legend Adjusted) ---
+        // --- 2. The Package Doughnut Chart ---
         const ctxPackage = document.getElementById('packageChart').getContext('2d');
-        
-        // Simplified display labels for clean layout (full context remains in tooltips & side cards)
-        const labelsPackage = ['Tuition Fee', 'Living Stipend', 'Relocation Allowance'];
+        const labelsPackage = ['Tuition Fee (3.5y)', 'Living Stipend (3.5y)', 'Relocation Allowance'];
+        const processedLabelsPackage = labelsPackage.map(l => splitLabel(l, 20));
 
         new Chart(ctxPackage, {
             type: 'doughnut',
             data: {
-                labels: labelsPackage,
+                labels: processedLabelsPackage,
                 datasets: [{
-                    data: [1600000, 1432830, 16820], // ZAR Amounts
+                    data: [1600000, 1432830, 16820], // Approx Rands
                     backgroundColor: [
                         '#1e40af', // Blue
                         '#f97316', // Orange
                         '#10b981'  // Emerald
                     ],
                     borderWidth: 0,
-                    hoverOffset: 6
+                    hoverOffset: 4
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                cutout: '62%',
-                layout: {
-                    padding: {
-                        bottom: 10,
-                        top: 10
-                    }
-                },
+                cutout: '65%',
                 plugins: {
                     legend: {
                         position: 'bottom',
-                        align: 'center',
-                        labels: {
-                            padding: 24,           // Generous spacing around each legend item
-                            boxWidth: 14,          // Slightly smaller color box to save space
-                            boxHeight: 14,
-                            usePointStyle: true,   // Round dots look cleaner than wide rectangles
-                            font: {
-                                size: 13,
-                                family: "'Open Sans', sans-serif",
-                                weight: '600'
-                            },
-                            color: '#334155'
-                        }
+                        labels: { padding: 20, usePointStyle: true }
                     },
                     tooltip: {
                         ...commonTooltip,
