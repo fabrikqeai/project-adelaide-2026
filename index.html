@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Adelaide | The Journey & Investment</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',   /* Deep Blue */
+                        secondary: '#f97316', /* Vibrant Orange */
+                        accent: '#10b981',    /* Emerald Green */
+                        surface: '#ffffff',
+                        background: '#f1f5f9', /* Slate 100 */
+                    },
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f1f5f9;
+        }
+        
+        /* Chart Container Styling - Responsive Boundaries */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Max width constraint */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 400px;
+        }
+
+        /* Taller container for specific charts if needed */
+        .chart-container-lg {
+            height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+            .chart-container-lg {
+                height: 450px;
+            }
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background-color: #cbd5e1;
+            z-index: 0;
+        }
+
+        .card-hover {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="text-slate-800 font-sans antialiased">
+
+    <!-- Header Section -->
+    <header class="bg-primary text-white pt-12 pb-24 relative overflow-hidden">
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <h1 class="font-display font-extrabold text-4xl md:text-6xl mb-4 tracking-tight uppercase">Project Adelaide</h1>
+            <p class="text-xl md:text-2xl font-light text-blue-100 max-w-3xl mx-auto">
+                Bridging the gap to a <strong class="text-secondary">R3 Million (~$271,000 AUD)</strong> fully funded PhD investment.
+            </p>
+            <div class="mt-8">
+                <span class="inline-block bg-secondary text-white font-bold py-2 px-6 rounded-full shadow-lg transform rotate-[-2deg]">
+                    Practice-Led Research 🚀
+                </span>
+            </div>
+        </div>
+        <!-- Decorative Circle (CSS only) -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-blue-600 rounded-full opacity-20 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-orange-500 rounded-full opacity-10 blur-3xl"></div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="container mx-auto px-4 -mt-16 relative z-20 pb-20">
+
+        <!-- Introduction Card -->
+        <div class="bg-surface rounded-xl shadow-xl p-8 mb-12 border-t-4 border-secondary text-center max-w-4xl mx-auto">
+            <h2 class="text-3xl font-display font-bold text-gray-800 mb-4">The Next Chapter</h2>
+            <p class="text-lg text-gray-600 leading-relaxed">
+                After completing my MFA and producing <em>Map of Brooklyn (2020)</em>, I have been awarded a prestigious <strong>Full Research Scholarship</strong> to Adelaide University in Australia. This is not just a degree; it is a significant international investment in South African storytelling.
+            </p>
+        </div>
+
+        <!-- Section 1: The Research Vision (Radar Chart) -->
+        <section class="mb-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="order-2 md:order-1">
+                    <div class="bg-surface rounded-xl shadow-md p-6 h-full flex flex-col justify-center">
+                        <div class="chart-container chart-container-lg">
+                            <canvas id="visionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                    <h3 class="text-2xl font-display font-bold text-primary mb-4 border-l-4 border-secondary pl-4">The Vision: Interdisciplinary Research</h3>
+                    <p class="mb-4 text-gray-700">
+                        My work interrogates post-apartheid cultural identity, negotiating trauma, memory, and belonging. It is a practice-led exploration that sits at the intersection of traditional forms and new technologies.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-2 text-xl">‣</span>
+                            <span><strong>Hybrid Narrative:</strong> Blending creative writing with transmedial forms.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-2 text-xl">‣</span>
+                            <span><strong>Decolonial Aesthetics:</strong> Re-framing storytelling through a South African lens.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-2 text-xl">‣</span>
+                            <span><strong>AI & Tech:</strong> Exploring ethical dimensions of representation in the age of AI.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: The Package (Donut Chart) -->
+        <section class="mb-16 bg-white rounded-2xl shadow-lg p-8">
+            <div class="text-center mb-10">
+                <h3 class="text-3xl font-display font-bold text-gray-800">The R3 Million Package (~$271,000 AUD)</h3>
+                <p class="text-gray-500 mt-2">A secured, fully-funded 3.5-year investment.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        The scholarship covers tuition, a generous tax-free living stipend, and relocation costs. This financial backing ensures I can focus entirely on the research without financial burden once the programme commences.
+                    </p>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-primary">
+                            <p class="text-sm text-gray-500 uppercase font-bold">Tuition (Fully Funded)</p>
+                            <p class="text-2xl font-bold text-primary">~R1.6 Million <span class="text-lg font-normal text-gray-600">(~$142,500 AUD)</span></p>
+                            <p class="text-xs text-gray-400">3.5 Years Value</p>
+                        </div>
+                        <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-secondary">
+                            <p class="text-sm text-gray-500 uppercase font-bold">Annual Stipend</p>
+                            <p class="text-2xl font-bold text-gray-800">~R409,380 p/a <span class="text-lg font-normal text-gray-600">($36,500 AUD/year)</span></p>
+                            <p class="text-xs text-gray-400">Tax Free Living Allowance</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-accent">
+                            <p class="text-sm text-gray-500 uppercase font-bold">Relocation Allowance</p>
+                            <p class="text-2xl font-bold text-accent">~R16,820 <span class="text-lg font-normal text-gray-600">($1,500 AUD)</span></p>
+                            <p class="text-xs text-gray-400">Once-off Grant</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="chart-container">
+                        <canvas id="packageChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Opportunity / Gap (Bar Chart) -->
+        <section class="mb-16">
+            <h3 class="text-2xl font-display font-bold text-center text-primary mb-8">The Opportunity: Bridging the Gap</h3>
+            
+            <div class="bg-surface rounded-xl shadow-md p-8">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1">
+                        <div class="bg-gray-800 text-white p-6 rounded-xl h-full flex flex-col justify-center text-center shadow-lg">
+                            <h4 class="text-xl font-bold text-secondary mb-2">The Request</h4>
+                            <div class="text-4xl font-extrabold mb-1">R40,000</div>
+                            <div class="text-lg font-semibold text-gray-300 mb-2">(~$3,560 AUD)</div>
+                            <p class="text-gray-300 text-sm mb-6">Bridge Loan Target</p>
+                            <hr class="border-gray-600 mb-6">
+                            <p class="text-gray-300 mb-4">
+                                To cover immediate <strong>Visa Compliance</strong> & <strong>Medical</strong> costs.
+                            </p>
+                            <p class="text-accent font-bold text-sm bg-gray-700 py-2 rounded">
+                                Guaranteed Repayment
+                            </p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2">
+                        <div class="mb-4">
+                            <p class="text-gray-700">
+                                This chart illustrates the scale of the secured funding versus the immediate bridge loan required. The request represents <strong>~1.3%</strong> of the total secured contract value, highlighting the low risk and high security of this loan.
+                            </p>
+                        </div>
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas id="gapChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Timeline (HTML/Tailwind - No SVG) -->
+        <section class="mb-16 max-w-3xl mx-auto">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-display font-bold text-gray-800">Critical Timeline</h3>
+                <p class="text-gray-500">The path to Adelaide & Repayment Schedule</p>
+            </div>
+
+            <div class="relative py-4">
+                <!-- Vertical Line -->
+                <div class="timeline-line bg-gray-300"></div>
+
+                <!-- Item 1: Fundraise -->
+                <div class="relative z-10 flex items-center justify-between mb-12 w-full">
+                    <div class="order-1 w-5/12 text-right pr-4">
+                        <h4 class="font-bold text-lg text-secondary">June – August</h4>
+                        <p class="text-sm text-gray-600">Raise R40,000 (~$3,560 AUD) Bridge Loan</p>
+                        <p class="text-xs text-gray-500 mt-1">Lodge Visa Application & Medicals</p>
+                    </div>
+                    <div class="order-1 w-8 h-8 bg-secondary rounded-full shadow-lg border-4 border-white z-20 flex items-center justify-center text-white font-bold text-xs">1</div>
+                    <div class="order-1 w-5/12 pl-4"></div>
+                </div>
+
+                <!-- Item 2: Departure -->
+                <div class="relative z-10 flex items-center justify-between mb-12 w-full">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="order-1 w-8 h-8 bg-primary rounded-full shadow-lg border-4 border-white z-20 flex items-center justify-center text-white font-bold text-xs">2</div>
+                    <div class="order-1 w-5/12 text-left pl-4">
+                        <h4 class="font-bold text-lg text-primary">September / October</h4>
+                        <p class="text-sm text-gray-600">Departure & Relocation to Adelaide</p>
+                        <p class="text-xs text-gray-500 mt-1">First Stipend Disbursement Arrives</p>
+                    </div>
+                </div>
+
+                <!-- Item 3: Repayment -->
+                <div class="relative z-10 flex items-center justify-between w-full">
+                    <div class="order-1 w-5/12 text-right pr-4">
+                        <h4 class="font-bold text-lg text-accent">End Oct – Jan 2027</h4>
+                        <p class="text-sm text-gray-600">Full Loan Repayment Period</p>
+                        <p class="text-xs text-gray-500 mt-1">Structured monthly repayments backed by stipend</p>
+                    </div>
+                    <div class="order-1 w-8 h-8 bg-accent rounded-full shadow-lg border-4 border-white z-20 flex items-center justify-center text-white font-bold text-xs">3</div>
+                    <div class="order-1 w-5/12 pl-4"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer / CTA -->
+        <footer class="bg-gray-800 text-white rounded-t-3xl pt-16 pb-8 mt-12">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-display font-bold mb-6">Partner in this Milestone</h2>
+                <p class="max-w-2xl mx-auto text-gray-400 mb-8">
+                    Help bridge the gap to this once-in-a-lifetime opportunity. Your support is backed by a guaranteed international contract.
+                </p>
+                
+                <div class="inline-block bg-green-600 hover:bg-green-700 transition-colors text-white font-bold py-4 px-8 rounded-full shadow-lg mb-8 text-xl">
+                    WhatsApp: 076 659 5763
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-lg mx-auto text-left text-sm text-gray-500 mt-8 border-t border-gray-700 pt-8">
+                    <div>
+                        <span class="block font-bold text-gray-400">Confidentiality Note:</span>
+                        Please keep this transition within a trusted circle until the visa is finalized.
+                    </div>
+                    <div>
+                        <span class="block font-bold text-gray-400">Bank Details:</span>
+                        Available upon request via WhatsApp.
+                    </div>
+                </div>
+                
+                <p class="text-xs text-gray-700 mt-12">&copy; 2026 Project Adelaide Pitch</p>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Chart Logic -->
+    <script>
+        // --- Helper Function: Split Long Labels ---
+        function splitLabel(str, maxLen = 16) {
+            if (str.length <= maxLen) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= maxLen) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- Helper: Common Tooltip Configuration ---
+        const commonTooltip = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // --- 1. Vision Radar Chart ---
+        const ctxVision = document.getElementById('visionChart').getContext('2d');
+        const labelsVision = ['Creative Writing', 'Hybrid Narrative', 'Decolonial Aesthetics', 'Trauma & Memory', 'AI & Ethics'];
+        const processedLabelsVision = labelsVision.map(l => splitLabel(l));
+
+        new Chart(ctxVision, {
+            type: 'radar',
+            data: {
+                labels: processedLabelsVision,
+                datasets: [{
+                    label: 'Research Focus Intensity',
+                    data: [90, 85, 95, 80, 75],
+                    fill: true,
+                    backgroundColor: 'rgba(30, 64, 175, 0.2)', // Primary Blue transparent
+                    borderColor: '#1e40af',
+                    pointBackgroundColor: '#f97316', // Orange
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#f97316'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                elements: {
+                    line: { borderWidth: 3 }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: '#cbd5e1' },
+                        grid: { color: '#e2e8f0' },
+                        pointLabels: {
+                            font: { size: 12, family: "'Open Sans', sans-serif", weight: '600' },
+                            color: '#334155'
+                        },
+                        ticks: { display: false, backdropColor: 'transparent' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: commonTooltip
+                }
+            }
+        });
+
+        // --- 2. The Package Doughnut Chart ---
+        const ctxPackage = document.getElementById('packageChart').getContext('2d');
+        const labelsPackage = ['Tuition Fee (3.5y)', 'Living Stipend (3.5y)', 'Relocation Allowance'];
+        const processedLabelsPackage = labelsPackage.map(l => splitLabel(l, 20));
+
+        new Chart(ctxPackage, {
+            type: 'doughnut',
+            data: {
+                labels: processedLabelsPackage,
+                datasets: [{
+                    data: [1600000, 1432830, 16820], // Approx Rands
+                    backgroundColor: [
+                        '#1e40af', // Blue
+                        '#f97316', // Orange
+                        '#10b981'  // Emerald
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 20, usePointStyle: true }
+                    },
+                    tooltip: {
+                        ...commonTooltip,
+                        callbacks: {
+                            title: commonTooltip.callbacks.title,
+                            label: function(context) {
+                                let value = context.raw;
+                                let audValue = Math.round(value / 11.23).toLocaleString();
+                                return ' Value: R ' + value.toLocaleString() + ' (~$' + audValue + ' AUD)'; 
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- 3. The Gap (Bar Chart) ---
+        const ctxGap = document.getElementById('gapChart').getContext('2d');
+        const labelsGap = ['Total Secured Contract', 'Bridge Loan Request'];
+        const processedLabelsGap = labelsGap.map(l => splitLabel(l));
+
+        new Chart(ctxGap, {
+            type: 'bar',
+            data: {
+                labels: processedLabelsGap,
+                datasets: [{
+                    label: 'Value (ZAR)',
+                    data: [3049650, 40000],
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.6)', // Green (Secured)
+                        'rgba(249, 115, 22, 0.8)'  // Orange (Needed)
+                    ],
+                    borderColor: [
+                        '#10b981',
+                        '#f97316'
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 8,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                indexAxis: 'y', // Horizontal Bar
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            callback: function(value) {
+                                return 'R' + value / 1000 + 'k';
+                            }
+                        }
+                    },
+                    y: {
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        ...commonTooltip,
+                        callbacks: {
+                            title: commonTooltip.callbacks.title,
+                            label: function(context) {
+                                let val = context.raw;
+                                let aud = Math.round(val / 11.23).toLocaleString();
+                                return ' Amount: R ' + val.toLocaleString() + ' (~$' + aud + ' AUD)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
