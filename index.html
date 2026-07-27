@@ -43,21 +43,21 @@
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 600px; /* Max width constraint */
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            height: 300px; /* Base height */
-            max-height: 400px;
+            height: 320px;
+            max-height: 420px;
         }
 
-        /* Taller container for specific charts if needed */
+        /* Taller container for specific charts */
         .chart-container-lg {
-            height: 400px;
+            height: 380px;
         }
 
         @media (min-width: 768px) {
             .chart-container {
-                height: 350px;
+                height: 360px;
             }
             .chart-container-lg {
                 height: 450px;
@@ -177,7 +177,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-center">
+                <div class="flex justify-center w-full">
                     <div class="chart-container">
                         <canvas id="packageChart"></canvas>
                     </div>
@@ -217,7 +217,7 @@
                                 This chart illustrates the scale of the secured funding versus the immediate bridge loan required. The request represents <strong>~1.3%</strong> of the total secured contract value, highlighting the low risk and high security of this loan.
                             </p>
                         </div>
-                        <div class="chart-container" style="height: 250px;">
+                        <div class="chart-container" style="height: 260px;">
                             <canvas id="gapChart"></canvas>
                         </div>
                     </div>
@@ -225,7 +225,7 @@
             </div>
         </section>
 
-        <!-- Section 4: Timeline (HTML/Tailwind - No SVG) -->
+        <!-- Section 4: Timeline (HTML/Tailwind) -->
         <section class="mb-16 max-w-3xl mx-auto">
             <div class="text-center mb-12">
                 <h3 class="text-3xl font-display font-bold text-gray-800">Critical Timeline</h3>
@@ -308,7 +308,7 @@
     <!-- Chart Logic -->
     <script>
         // --- Helper Function: Split Long Labels ---
-        function splitLabel(str, maxLen = 16) {
+        function splitLabel(str, maxLen = 18) {
             if (str.length <= maxLen) return str;
             const words = str.split(' ');
             const lines = [];
@@ -354,9 +354,9 @@
                     label: 'Research Focus Intensity',
                     data: [90, 85, 95, 80, 75],
                     fill: true,
-                    backgroundColor: 'rgba(30, 64, 175, 0.2)', // Primary Blue transparent
+                    backgroundColor: 'rgba(30, 64, 175, 0.2)',
                     borderColor: '#1e40af',
-                    pointBackgroundColor: '#f97316', // Orange
+                    pointBackgroundColor: '#f97316',
                     pointBorderColor: '#fff',
                     pointHoverBackgroundColor: '#fff',
                     pointHoverBorderColor: '#f97316'
@@ -386,41 +386,52 @@
             }
         });
 
-        // --- 2. The Package Doughnut Chart ---
+        // --- 2. The Package Doughnut Chart (Spacing & Legend Adjusted) ---
         const ctxPackage = document.getElementById('packageChart').getContext('2d');
-        // Unwrapped labels so that each string renders on a single line
-        const labelsPackage = ['Tuition Fee (3.5y)', 'Living Stipend (3.5y)', 'Relocation Allowance'];
+        
+        // Simplified display labels for clean layout (full context remains in tooltips & side cards)
+        const labelsPackage = ['Tuition Fee', 'Living Stipend', 'Relocation Allowance'];
 
         new Chart(ctxPackage, {
             type: 'doughnut',
             data: {
                 labels: labelsPackage,
                 datasets: [{
-                    data: [1600000, 1432830, 16820], // Approx Rands
+                    data: [1600000, 1432830, 16820], // ZAR Amounts
                     backgroundColor: [
                         '#1e40af', // Blue
                         '#f97316', // Orange
                         '#10b981'  // Emerald
                     ],
                     borderWidth: 0,
-                    hoverOffset: 4
+                    hoverOffset: 6
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                cutout: '65%',
+                cutout: '62%',
+                layout: {
+                    padding: {
+                        bottom: 10,
+                        top: 10
+                    }
+                },
                 plugins: {
                     legend: {
                         position: 'bottom',
-                        labels: { 
-                            padding: 12, 
-                            usePointStyle: true,
-                            boxWidth: 8,
+                        align: 'center',
+                        labels: {
+                            padding: 24,           // Generous spacing around each legend item
+                            boxWidth: 14,          // Slightly smaller color box to save space
+                            boxHeight: 14,
+                            usePointStyle: true,   // Round dots look cleaner than wide rectangles
                             font: {
-                                size: 11,
-                                family: "'Open Sans', sans-serif"
-                            }
+                                size: 13,
+                                family: "'Open Sans', sans-serif",
+                                weight: '600'
+                            },
+                            color: '#334155'
                         }
                     },
                     tooltip: {
