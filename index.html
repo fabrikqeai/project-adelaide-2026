@@ -43,7 +43,7 @@
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 600px; /* Max width constraint */
+            max-width: 720px; /* Max width constraint */
             margin-left: auto;
             margin-right: auto;
             height: 300px; /* Base height */
@@ -110,7 +110,7 @@
         <div class="bg-surface rounded-xl shadow-xl p-8 mb-12 border-t-4 border-secondary text-center max-w-4xl mx-auto">
             <h2 class="text-3xl font-display font-bold text-gray-800 mb-4">The Next Chapter</h2>
             <p class="text-lg text-gray-600 leading-relaxed">
-                After completing my MFA and producing <em>Map of Brooklyn (2020)</em>, I have been awarded a prestigious <strong>Full Research Scholarship</strong> to Adelaide University in Australia. This is not just a degree; it is a significant international investment in South African storytelling.
+                After completing my MFA and producing <em>Map of Brooklyn (2020)</em> and <em>No Vows, No Cows (2023)</em>, I have been awarded a prestigious <strong>Full Research Scholarship</strong> with Adelaide University in Australia for this next chapter. This opportunity is more than just a degree. It is a significant international investment in South African storytelling.
             </p>
         </div>
 
@@ -178,8 +178,32 @@
                     </div>
                 </div>
                 <div class="flex justify-center">
-                    <div class="chart-container">
-                        <canvas id="packageChart"></canvas>
+                    <div class="w-full max-w-[720px]">
+                
+                        <div class="chart-container">
+                            <canvas id="packageChart"></canvas>
+                        </div>
+                
+                        <!-- Custom Legend -->
+                        <div class="grid grid-cols-3 gap-4 mt-4 text-sm font-semibold text-slate-700">
+                
+                            <div class="flex items-center justify-center whitespace-nowrap">
+                                <span class="w-3 h-3 rounded-full bg-blue-800 mr-2 flex-shrink-0"></span>
+                                <span>Tuition Fee (3.5y)</span>
+                            </div>
+                
+                            <div class="flex items-center justify-center whitespace-nowrap">
+                                <span class="w-3 h-3 rounded-full bg-orange-500 mr-2 flex-shrink-0"></span>
+                                <span>Living Stipend (3.5y)</span>
+                            </div>
+                
+                            <div class="flex items-center justify-center whitespace-nowrap">
+                                <span class="w-3 h-3 rounded-full bg-emerald-500 mr-2 flex-shrink-0"></span>
+                                <span>Relocation Allowance</span>
+                            </div>
+                
+                        </div>
+                
                     </div>
                 </div>
             </div>
@@ -286,7 +310,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-lg mx-auto text-left text-sm text-gray-500 mt-8 border-t border-gray-700 pt-8">
                     <div>
                         <span class="block font-bold text-gray-400">Confidentiality Note:</span>
-                        Please keep this transition within a trusted circle until the visa is finalized.
+                        Please keep this transition within a trusted circle.
                     </div>
                     <div>
                         <span class="block font-bold text-gray-400">Bank Details:</span>
@@ -389,12 +413,11 @@
         // --- 2. The Package Doughnut Chart ---
         const ctxPackage = document.getElementById('packageChart').getContext('2d');
         const labelsPackage = ['Tuition Fee (3.5y)', 'Living Stipend (3.5y)', 'Relocation Allowance'];
-        const processedLabelsPackage = labelsPackage.map(l => splitLabel(l, 20));
-
+        
         new Chart(ctxPackage, {
             type: 'doughnut',
             data: {
-                labels: processedLabelsPackage,
+                labels: labelsPackage,
                 datasets: [{
                     data: [1600000, 1432830, 16820], // Approx Rands
                     backgroundColor: [
@@ -412,8 +435,7 @@
                 cutout: '65%',
                 plugins: {
                     legend: {
-                        position: 'bottom',
-                        labels: { padding: 20, usePointStyle: true }
+                        display: false
                     },
                     tooltip: {
                         ...commonTooltip,
